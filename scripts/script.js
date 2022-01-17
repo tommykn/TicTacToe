@@ -7,20 +7,20 @@ const game = (() => {
 
 
 
-        }
+        };
 
-    }
+    };
 
     const gameBoard = (() => {
         let gameArray = [
-            1, 2, 3,
-            4, 7, 6,
-            7, 8, 9,
+            'X', 'O', 'O',
+            'O', 'X', 'O',
+            'O', 'X', 'X',
         ];
 
         const renderGameBoard = () => {
 
-        }
+        };
         return {
             gameArray
         };
@@ -31,12 +31,14 @@ const game = (() => {
     const displayController = (() => {
         const domArray = document.querySelectorAll('.grid-item');
 
-        for (let i = 0; i < domArray.length; i++) {
-            domArray[i].textContent = gameBoard.gameArray[i];
-        }
+        const updateGameBoard = () => {
+            for (let i = 0; i < domArray.length; i++) {
+                domArray[i].textContent = gameBoard.gameArray[i];
+            }
+        };
 
         return {
-            domArray
+            updateGameBoard
         };
 
     })();
