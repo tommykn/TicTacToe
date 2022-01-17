@@ -1,0 +1,31 @@
+html, 
+body {
+    margin: 0;
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    margin: 0;
+    padding: 1rem;
+}
+.main-content {
+    height: auto;
+}
+
+
+.footer {
+    margin-top: auto;
+    display: flex;
+    background-color: green;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+}
