@@ -16,7 +16,31 @@ body {
     padding: 1rem;
 }
 .main-content {
-    height: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.grid-container {
+    border: 2px solid black;
+    display: grid;
+    height: 20rem;
+    width: 20rem;
+    margin: auto;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+
+
+}
+.grid-item {
+    display: flex;
+    border: 1px solid black;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: white;
 }
 
 
