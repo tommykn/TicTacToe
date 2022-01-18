@@ -3,21 +3,10 @@ const code = (() => {
     /* this will be a a factory function that creates the player object */
     const Player = (name, type) => {
 
-        const makeMove = (player, place) => {
-            if (player.type === 'O') {
-                gameBoard.gameArray[place] = 'O';
-                game.turn = 'X';
-            } else if (player.type === 'X') {
-                gameBoard.gameArray[place] = 'X';
-                game.turn = 'O';
-            }
-            displayController.updateGameBoard();
-        };
 
         return {
             name,
             type,
-            makeMove
         }
     };
 
@@ -32,10 +21,6 @@ const code = (() => {
             '', '', '',
             '', '', '',
         ];
-
-        const renderGameBoard = () => {
-
-        };
         return {
             gameArray
         };
@@ -43,8 +28,47 @@ const code = (() => {
     })();
 
 
+
+
+
+    const game = (() => {
+        let turn = 'X';
+
+
+
+        return {
+            turn
+        };
+
+    })();
+
     const displayController = (() => {
         const domArray = document.querySelectorAll('.grid-item');
+
+        const makeMove = (turn, place) => {
+            if (turn === 'O') {
+                gameBoard.gameArray[place] = 'O';
+                game.turn = 'X';
+            } else if (turn === 'X') {
+                gameBoard.gameArray[place] = 'X';
+                game.turn = 'O';
+            }
+            updateGameBoard();
+        };
+
+
+        const checkForMoves = () => {
+            domArray.forEach(box => {
+                box.addEventListener('click', () => {
+                    makeMove(game.turn, box.classList[1])
+                });
+            });
+
+
+        }
+
+
+
 
         const updateGameBoard = () => {
             for (let i = 0; i < domArray.length; i++) {
@@ -53,19 +77,11 @@ const code = (() => {
         };
 
         return {
-            updateGameBoard
+            updateGameBoard,
+            domArray,
+            checkForMoves,
+            makeMove
         };
-
-    })();
-
-
-    const game = (() => {
-        let turn = 'X';
-
-
-        return {
-            turn
-        }
 
     })();
 
