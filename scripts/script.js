@@ -1,21 +1,36 @@
-const game = (() => {
+const code = (() => {
     'use strict';
     /* this will be a a factory function that creates the player object */
     const Player = (name, type) => {
 
-        const makeMove = (player) => {
-
-
-
+        const makeMove = (player, place) => {
+            if (player.type === 'O') {
+                gameBoard.gameArray[place] = 'O';
+                game.turn = 'X';
+            } else if (player.type === 'X') {
+                gameBoard.gameArray[place] = 'X';
+                game.turn = 'O';
+            }
+            displayController.updateGameBoard();
         };
 
+        return {
+            name,
+            type,
+            makeMove
+        }
     };
+
+    const playerOne = Player('Tommy', 'X');
+
+
+    
 
     const gameBoard = (() => {
         let gameArray = [
-            'X', 'O', 'O',
-            'O', 'X', 'O',
-            'O', 'X', 'X',
+            '', '', '',
+            '', '', '',
+            '', '', '',
         ];
 
         const renderGameBoard = () => {
@@ -43,9 +58,24 @@ const game = (() => {
 
     })();
 
+
+    const game = (() => {
+        let turn = 'X';
+
+
+        return {
+            turn
+        }
+
+    })();
+
+
+
     return {
         gameBoard,
-        displayController
+        displayController,
+        game,
+        playerOne
     };
 
 })();
