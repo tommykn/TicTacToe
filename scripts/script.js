@@ -10,8 +10,6 @@ const code = (() => {
         }
     };
 
-    const playerOne = Player('Tommy', 'X');
-
 
     
 
@@ -46,6 +44,9 @@ const code = (() => {
         const domArray = document.querySelectorAll('.grid-item');
 
         const makeMove = (turn, place) => {
+            if (gameBoard.gameArray[place] !== '') {
+                return;
+            }
             if (turn === 'O') {
                 gameBoard.gameArray[place] = 'O';
                 game.turn = 'X';
@@ -91,7 +92,6 @@ const code = (() => {
         gameBoard,
         displayController,
         game,
-        playerOne
     };
 
 })();
