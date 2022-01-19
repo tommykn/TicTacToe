@@ -31,6 +31,23 @@ const code = (() => {
 
     const game = (() => {
         let turn = 'X';
+
+        const checkTie = function() {
+            let counter = 0;
+            for (let i = 0; i < gameBoard.gameArray.length; i++) {
+                if (gameBoard.gameArray[i] !== '') {
+                    counter++;
+                }
+            }
+            if (counter === 9) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
         // I will make a checkForWin method that I will used after every move.
         const checkForWin = () => {
             // check all horizontal lications
@@ -68,6 +85,8 @@ const code = (() => {
                 return true;
             } else if (gameBoard.gameArray[2] === 'X' && gameBoard.gameArray[4] === 'X' && gameBoard.gameArray[6] === 'X') {
                 return true;
+            } else if (checkTie()) {
+                return true;
             } else {
                 return false;
             }
@@ -102,7 +121,8 @@ const code = (() => {
                 game.turn = 'O';
             }
             updateGameBoard();
-            if (checkForMoves()) {
+            if (game.checkForWin()) {
+                _stopGame();
                 
             }
         };
@@ -136,8 +156,7 @@ const code = (() => {
             updateGameBoard,
             domArray,
             checkForMoves,
-            makeMove,
-            _stopGame
+            makeMove
         };
 
     })();
