@@ -88,7 +88,9 @@ const code = (() => {
     const displayController = (() => {
         const domArray = document.querySelectorAll('.grid-item');
 
-        const makeMove = (turn, place) => {
+        const makeMove = function() {
+            let turn = game.turn;
+            let place = this.classList[1];
             if (gameBoard.gameArray[place] !== '') {
                 return;
             }
@@ -105,12 +107,17 @@ const code = (() => {
             }
         };
 
+        const _stopGame = function() {
+            domArray.forEach(box => {
+                box.removeEventListener('click', makeMove)
+            });
+
+        }
+
 
         const checkForMoves = () => {
             domArray.forEach(box => {
-                box.addEventListener('click', () => {
-                    makeMove(game.turn, box.classList[1])
-                });
+                box.addEventListener('click', makeMove)
             });
 
 
@@ -129,7 +136,8 @@ const code = (() => {
             updateGameBoard,
             domArray,
             checkForMoves,
-            makeMove
+            makeMove,
+            _stopGame
         };
 
     })();
