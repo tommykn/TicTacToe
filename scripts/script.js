@@ -2,13 +2,24 @@ const code = (() => {
     'use strict';
     /* this will be a a factory function that creates the player object */
     const Player = (name, type) => {
+        const getName = function () {
+            return name;
+        }
+        const getType = function () {
+            return type;
+        }
 
 
         return {
             name,
             type,
+            getName,
+            getType
         }
     };
+
+    const playerOne = Player('IM X', 'X');
+    const playerTwo = Player('IM O', 'O');
 
 
     
@@ -99,13 +110,28 @@ const code = (() => {
 
         return {
             turn,
-            checkForWin
+            checkForWin,
+            checkTie
         };
 
     })();
 
     const displayController = (() => {
-        const domArray = document.querySelectorAll('.grid-item');
+        const _domArray = document.querySelectorAll('.grid-item');
+        const _titleAboveBoard = document.querySelector('.main-title-content');
+
+        const _displayWin = function() {
+            if (game.turn === playerOne.type) {
+                // display playerTwo wins
+
+                _titleAboveBoard.textContent = playerTwo.name;
+
+            } else if (game.turn === playerTwo.type) {
+                // display playerOne wins
+                _titleAboveBoard.textContent = playerOne.name;
+            }
+
+        }
 
         const makeMove = function() {
             let turn = game.turn;
@@ -123,12 +149,13 @@ const code = (() => {
             updateGameBoard();
             if (game.checkForWin()) {
                 _stopGame();
+                _displayWin();
                 
             }
         };
 
         const _stopGame = function() {
-            domArray.forEach(box => {
+            _domArray.forEach(box => {
                 box.removeEventListener('click', makeMove)
             });
 
@@ -136,7 +163,7 @@ const code = (() => {
 
 
         const checkForMoves = () => {
-            domArray.forEach(box => {
+            _domArray.forEach(box => {
                 box.addEventListener('click', makeMove)
             });
 
@@ -147,14 +174,14 @@ const code = (() => {
 
 
         const updateGameBoard = () => {
-            for (let i = 0; i < domArray.length; i++) {
-                domArray[i].textContent = gameBoard.gameArray[i];
+            for (let i = 0; i < _domArray.length; i++) {
+                _domArray[i].textContent = gameBoard.gameArray[i];
             }
         };
 
         return {
             updateGameBoard,
-            domArray,
+            _domArray,
             checkForMoves,
             makeMove
         };
