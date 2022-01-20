@@ -18,8 +18,6 @@ const code = (() => {
         }
     };
 
-    const playerOne = Player('IM X', 'X');
-    const playerTwo = Player('IM O', 'O');
 
 
     
@@ -139,6 +137,26 @@ const code = (() => {
         const _domArray = document.querySelectorAll('.grid-item');
         const _titleAboveBoard = document.querySelector('.main-title-content');
         const resetBtn = document.querySelector('.reset-btn');
+        const _startBtn = document.querySelector('.startgame-btn');
+        const _playerOneInput = document.querySelector('.playerOneName');
+        const _playerTwoInput = document.querySelector('.playerTwoName');
+        const _preGamePage = document.querySelector('.pregame-page');
+        const _gamePage = document.querySelector('.game-page')
+        let playerOne = '';
+        let playerTwo = '';
+
+        const startGame = function () {
+            playerOne = Player(_playerOneInput.value, 'X');
+            playerTwo = Player(_playerTwoInput.value, 'O');
+            _playerOneInput.value = '';
+            _playerTwoInput.value = '';
+            _preGamePage.classList.toggle('inactive');
+            _gamePage.classList.toggle('inactive');
+            checkForMoves();
+
+        }
+
+        _startBtn.addEventListener('click', startGame);
 
         const _resetGame = function () {
             game.resetGame();
@@ -147,14 +165,18 @@ const code = (() => {
         resetBtn.addEventListener('click', _resetGame);
 
         const _displayWin = function() {
+            if (game.checkTie()) {
+                _titleAboveBoard.textContent = 'Cat Wins'
+                return;
+            }
             if (game.turn === playerOne.type) {
                 // display playerTwo wins
 
-                _titleAboveBoard.textContent = playerTwo.name;
+                _titleAboveBoard.textContent = `${playerTwo.name} Wins!`;
 
             } else if (game.turn === playerTwo.type) {
                 // display playerOne wins
-                _titleAboveBoard.textContent = playerOne.name;
+                _titleAboveBoard.textContent = `${playerOne.name} Wins!`;
             }
 
         }

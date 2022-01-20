@@ -64,3 +64,19 @@ body {
     padding: 1rem;
 
 }
+
+
+.pregame-page {
+    display: flex;
+
+}
+
+.pregame-container {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.inactive {
+    display: none;
+}
