@@ -42,6 +42,7 @@ const code = (() => {
 
     const game = (() => {
         let turn = 'X';
+        let firstPlayer = 'X';
 
         const checkTie = function() {
             let counter = 0;
@@ -55,6 +56,22 @@ const code = (() => {
             } else {
                 return false;
             }
+        }
+
+        const resetGame = function () {
+            if (!checkForWin()) {
+                this.turn = this.firstPlayer;
+
+            } else {
+                displayController.checkForMoves();
+            }
+            gameBoard.gameArray = [
+                '', '', '',
+                '', '', '',
+                '', '', '',
+            ];
+            displayController.updateGameBoard();
+
         }
 
 
@@ -111,7 +128,9 @@ const code = (() => {
         return {
             turn,
             checkForWin,
-            checkTie
+            checkTie,
+            resetGame,
+            firstPlayer
         };
 
     })();
@@ -119,6 +138,13 @@ const code = (() => {
     const displayController = (() => {
         const _domArray = document.querySelectorAll('.grid-item');
         const _titleAboveBoard = document.querySelector('.main-title-content');
+        const resetBtn = document.querySelector('.reset-btn');
+
+        const _resetGame = function () {
+            game.resetGame();
+            _titleAboveBoard.textContent = `${playerOne.name} vs ${playerTwo.name}`;
+        }
+        resetBtn.addEventListener('click', _resetGame);
 
         const _displayWin = function() {
             if (game.turn === playerOne.type) {
@@ -150,6 +176,11 @@ const code = (() => {
             if (game.checkForWin()) {
                 _stopGame();
                 _displayWin();
+                if (game.firstPlayer === 'X') {
+                    game.firstPlayer = 'O';
+                } else {
+                    game.firstPlayer = 'X';
+                }
                 
             }
         };
@@ -162,7 +193,7 @@ const code = (() => {
         }
 
 
-        const checkForMoves = () => {
+        const checkForMoves = function () {
             _domArray.forEach(box => {
                 box.addEventListener('click', makeMove)
             });
@@ -173,7 +204,7 @@ const code = (() => {
 
 
 
-        const updateGameBoard = () => {
+        const updateGameBoard = function () {
             for (let i = 0; i < _domArray.length; i++) {
                 _domArray[i].textContent = gameBoard.gameArray[i];
             }
