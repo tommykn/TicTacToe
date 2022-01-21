@@ -142,21 +142,41 @@ const code = (() => {
         const _playerTwoInput = document.querySelector('.playerTwoName');
         const _preGamePage = document.querySelector('.pregame-page');
         const _gamePage = document.querySelector('.game-page')
+        const _startOverBtn = document.querySelector('.start-over');
         let playerOne = '';
         let playerTwo = '';
 
-        const startGame = function () {
+        const _startOver = function () {
+            _stopGame();
+            gameBoard.gameArray = [
+                '', '', '',
+                '', '', '',
+                '', '', '',
+            ];
+            game.turn = 'X';
+            playerTwo = '';
+            playerOne = '';
+            _preGamePage.classList.toggle('inactive');
+            _gamePage.classList.toggle('inactive');
+        }
+        _startOverBtn.addEventListener('click', _startOver);
+
+        const _startGame = function () {
+            if (_playerOneInput.value === '' || _playerTwoInput.value === '') {
+                return;
+            }
             playerOne = Player(_playerOneInput.value, 'X');
             playerTwo = Player(_playerTwoInput.value, 'O');
             _playerOneInput.value = '';
             _playerTwoInput.value = '';
             _preGamePage.classList.toggle('inactive');
             _gamePage.classList.toggle('inactive');
+            _resetGame();
             checkForMoves();
 
         }
 
-        _startBtn.addEventListener('click', startGame);
+        _startBtn.addEventListener('click', _startGame);
 
         const _resetGame = function () {
             game.resetGame();
@@ -234,7 +254,6 @@ const code = (() => {
 
         return {
             updateGameBoard,
-            _domArray,
             checkForMoves,
             makeMove
         };
