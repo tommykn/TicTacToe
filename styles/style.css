@@ -68,6 +68,10 @@ body {
 
 .pregame-page {
     display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
 
 }
 
@@ -75,6 +79,22 @@ body {
     display: flex;
     justify-content: space-evenly;
     text-align: center;
+}
+
+.startBtn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.player-title {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+}
+.player-one,
+.player-two {
+    text-align: left;
 }
 
 .inactive {

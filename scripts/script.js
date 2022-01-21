@@ -162,7 +162,7 @@ const code = (() => {
         _startOverBtn.addEventListener('click', _startOver);
 
         const _startGame = function () {
-            if (_playerOneInput.value === '' || _playerTwoInput.value === '') {
+            if (_playerOneInput.value.split(' ').join('') === '' || _playerTwoInput.value.split(' ').join('') === '') {
                 return;
             }
             playerOne = Player(_playerOneInput.value, 'X');
